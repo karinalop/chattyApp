@@ -20,35 +20,40 @@ class App extends Component {
     console.log("contected to the server", connection);
 
     console.log("componentDidMount <App />");
-    setTimeout(() => {
-      console.log("Simulating incoming message");
-      // Add a new message to the list of messages in the data store
-      const newMessage = {id: "3", username: "Michelle", content: "Hello there!"};
-      const messages = this.state.messages.concat(newMessage)
-      // Update the state of the app component.
-      // Calling setState will trigger a call to render() in App and all child components.
-      this.setState({messages: messages})
-      }, 3000);
-  }
 
-  addMessage(content) {
-
-    const newMess = {username: this.state.currentUser, content: content};
-
-    this.state.connection.send(JSON.stringify(newMess));
-    //receiving mssages from the server
-    this.state.connection.onmessage = event => {
-      //console.log(event.data);
+    connection.onmessage = event => {
+      console.log(event.data);
       //console.log(this);
       const incomingMsg = JSON.parse(event.data);
       const oldMessages = this.state.messages;
       const newMessages = [...oldMessages, incomingMsg];
-      this.setState({ messages: newMessages });
+      switch(incomingMsg.type) {
+        case "incomingMessage":
+          // handle incoming message
+          this.setState({ messages: newMessages });
+          break;
+        case "incomingNotification":
+          // handle incoming notification
+          this.setState({messages: newMessages  });
+          break;
+        default:
+          // show an error in the console if the message type is unknown
+          throw new Error("Unknown event type " + incomingMsg.type);
+      }
     }
   }
 
+  addMessage(content) {
+
+    const newMess = {type: "postMessage", username: this.state.currentUser, content: content};
+
+    this.state.connection.send(JSON.stringify(newMess));
+  }
+
   changeCurrentUser(username){
-    this.setState({ currentUser: username });
+    const newMess = {type: "postNotification", content: `${this.state.currentUser} has changed their name to ${username}`};
+    this.setState({currentUser: username });
+    this.state.connection.send(JSON.stringify(newMess));
   }
 
   render() {
