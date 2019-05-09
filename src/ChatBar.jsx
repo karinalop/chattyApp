@@ -12,11 +12,8 @@ export default function ChatBar(props) {
 
     return(
       <footer className="chatbar">
-
         <input className="chatbar-username"  placeholder="Type your name" defaultValue ={props.currentUser} />
-
         <input onKeyPress={onKeyPress}  name="message" className="chatbar-message" placeholder="Type a message and hit ENTER" />
-
       </footer>
     );
 
