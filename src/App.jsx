@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props){
     super(props);
      this.state = {messages: [],
-     currentUser:'Bob'};
+     currentUser:'Bob', usersConected: 0};
 
      this.addMessage = this.addMessage.bind(this);
      this.changeCurrentUser = this.changeCurrentUser.bind(this);
@@ -36,6 +36,9 @@ class App extends Component {
           // handle incoming notification
           this.setState({messages: newMessages  });
           break;
+        case "usersConected":
+          this.setState({usersConected: incomingMsg.content});
+          break;
         default:
           // show an error in the console if the message type is unknown
           throw new Error("Unknown event type " + incomingMsg.type);
@@ -61,6 +64,7 @@ class App extends Component {
       <div>
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
+        <p className="usersConected">{this.state.usersConected} users online</p>
       </nav>
       <MessageList messages={this.state.messages}/>
       <ChatBar currentUser={this.state.currentUser} addMessage={this.addMessage} changeCurrentUser={this.changeCurrentUser}/>
