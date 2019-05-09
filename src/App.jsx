@@ -41,13 +41,14 @@ class App extends Component {
 
     this.state.connection.send(JSON.stringify(newMess));
     //receiving mssages from the server
-    this.state.connection.onmessage = function (event) {
-      console.log(event);
+    this.state.connection.onmessage = event => {
+      console.log(event.data);
+      console.log(this);
+      const incomingMsg = JSON.parse(event.data);
+      const oldMessages = this.state.messages;
+      const newMessages = [...oldMessages, incomingMsg];
+      this.setState({ messages: newMessages });
     }
-
-    const oldMessages = this.state.messages;
-    const newMessages = [...oldMessages, newMess];
-    this.setState({ messages: newMessages });
   }
 
   render() {
