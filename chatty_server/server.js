@@ -33,21 +33,10 @@ wss.on('connection', (ws) => {
 
     ws.on('message', function incoming(message) {
       const objMess = JSON.parse(message);
-      console.log('received: %s', message);
+      //console.log('received: %s', message);
       const mess = {id: uuidv1(), username: objMess.username, content: objMess.content };
       wss.broadcast(JSON.stringify(mess));
 
-
-      //ws.send(JSON.stringify(mess));
-      // Broadcast to everyone else.
-    //   wss.clients.forEach(function each(client) {
-    //     //console.log(client.readyState === ws.OPEN);
-    //     //console.log(ws.OPEN);
-    //     if (client.readyState === ws.OPEN) {
-    //       console.log(JSON.stringify(mess));
-    //       client.send(JSON.stringify(mess));
-    //     }
-    // });
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.

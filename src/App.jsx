@@ -11,6 +11,7 @@ class App extends Component {
      currentUser:'Bob'};
 
      this.addMessage = this.addMessage.bind(this);
+     this.changeCurrentUser = this.changeCurrentUser.bind(this);
     }
 
   componentDidMount() {
@@ -32,23 +33,22 @@ class App extends Component {
 
   addMessage(content) {
 
-    // this.state.connection.onopen = function (event) {
-    //   console.log("esta conectado");
-    //this.state.connection.send("hola");
-    // };
-
     const newMess = {username: this.state.currentUser, content: content};
 
     this.state.connection.send(JSON.stringify(newMess));
     //receiving mssages from the server
     this.state.connection.onmessage = event => {
-      console.log(event.data);
-      console.log(this);
+      //console.log(event.data);
+      //console.log(this);
       const incomingMsg = JSON.parse(event.data);
       const oldMessages = this.state.messages;
       const newMessages = [...oldMessages, incomingMsg];
       this.setState({ messages: newMessages });
     }
+  }
+
+  changeCurrentUser(username){
+    this.setState({ currentUser: username });
   }
 
   render() {
@@ -58,7 +58,7 @@ class App extends Component {
         <a href="/" className="navbar-brand">Chatty</a>
       </nav>
       <MessageList messages={this.state.messages}/>
-      <ChatBar currentUser={this.state.currentUser} addMessage={this.addMessage}/>
+      <ChatBar currentUser={this.state.currentUser} addMessage={this.addMessage} changeCurrentUser={this.changeCurrentUser}/>
       </div>
     );
   }
