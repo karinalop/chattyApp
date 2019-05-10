@@ -5,15 +5,6 @@ Chatty is a Web app that allow users to communicate with each other without havi
 
 ### Usage
 
-Clone the boilerplate and create your own git repo.
-
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
 
 Install the dependencies and start the server.
 
@@ -35,7 +26,9 @@ This boilerplate project includes React ESLint configuration.
 
 ```
 npm run lint
+
 ```
+
 
 ### Dependencies
 
@@ -66,3 +59,6 @@ npm run lint
 * ws  7.0.0
 
 ## Screenshot
+
+!["Screenshot of a 3 Users Chat"](https://github.com/karinalop/chattyApp/blob/master/docs/3usersChat.png)
+!["Screenshot of a 3 Users Chat where one user change name and post"](https://github.com/karinalop/chattyApp/blob/master/docs/3usersChat.png)
