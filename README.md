@@ -61,4 +61,4 @@ npm run lint
 ## Screenshot
 
 !["Screenshot of a 3 Users Chat"](https://github.com/karinalop/chattyApp/blob/master/docs/3usersChat.png)
-!["Screenshot of a 3 Users Chat where one user change name and post"](https://github.com/karinalop/chattyApp/blob/master/docs/3usersChat.png)
+!["Screenshot of a 3 Users Chat where one user change name and post"](https://github.com/karinalop/chattyApp/blob/master/docs/3usersChat_1userChange%20Name.png)
