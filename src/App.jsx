@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
-//import messages from "../messages.json";
-//import { generateRandomId } from "./utils";
 
 class App extends Component {
   constructor(props){
     super(props);
      this.state = {messages: [],
      currentUser:'Bob', usersConected: 0};
-
      this.addMessage = this.addMessage.bind(this);
      this.changeCurrentUser = this.changeCurrentUser.bind(this);
     }
@@ -18,12 +15,7 @@ class App extends Component {
     var connection = new WebSocket("ws://localhost:3001");
     this.setState({connection});
     console.log("contected to the server", connection);
-
-    console.log("componentDidMount <App />");
-
     connection.onmessage = event => {
-      console.log(event.data);
-      //console.log(this);
       const incomingMsg = JSON.parse(event.data);
       const oldMessages = this.state.messages;
       const newMessages = [...oldMessages, incomingMsg];
@@ -49,7 +41,6 @@ class App extends Component {
   addMessage(content) {
 
     const newMess = {type: "postMessage", username: this.state.currentUser, content: content};
-
     this.state.connection.send(JSON.stringify(newMess));
   }
 

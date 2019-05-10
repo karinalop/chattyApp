@@ -31,37 +31,30 @@ wss.on('connection', (ws) => {
     });
   };
 
-  const msg= "There are " + wss.clients.size + " Clients conected";
   wss.broadcast(JSON.stringify({type: "usersConected", id: uuidv1(), content: wss.clients.size}));
 
 
     ws.on('message', function incoming(message) {
       const objMess = JSON.parse(message);
-      //console.log('received: %s', message);
-       switch(objMess.type) {
+      switch(objMess.type) {
         case "postMessage":
-        // handle incoming message
         const mess = {type: "incomingMessage", id: uuidv1(), username: objMess.username, content: objMess.content };
         wss.broadcast(JSON.stringify(mess));
         break;
 
         case "postNotification":
-        // handle incoming notification
         wss.broadcast(JSON.stringify({type: "incomingNotification", id: uuidv1(), content: objMess.content }));
         break;
+
         default:
-        // show an error in the console if the message type is unknown
         throw new Error("Unknown event type " + objMess.type);
-    }
-
-
+      }
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
     console.log('Client disconnected');
     console.log(wss.clients.size);
-    const msg= "There are " + wss.clients.size + " Clients conected";
     wss.broadcast(JSON.stringify({type: "usersConected", id: uuidv1(), content: wss.clients.size }));
   });
 

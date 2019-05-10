@@ -7,5 +7,6 @@ export default function MessageList(props){
       <main className="messages">
       {messList}
       </main>
-      )}
+      )
+  }
 

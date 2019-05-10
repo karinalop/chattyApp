@@ -15,7 +15,6 @@ export default function ChatBar(props) {
         event.preventDefault();
         const userInput = event.target;
         props.changeCurrentUser(userInput.value );
-        //userInput.value = "";
       }
     };
 
